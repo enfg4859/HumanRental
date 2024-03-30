@@ -1,0 +1,79 @@
+*{
+	margin: 0;
+	padding: 0;
+    box-sizing: border-box !important;
+	font-family: 'NanumBarunGothic';
+}
+
+* i{
+	font-family: "Font Awesome 6 Free";
+}
+
+.qqnav{
+    background-color: white;
+    color: black;
+    height: 10vh;
+    width: 100%;
+}
+
+.qqnav a{
+	color: black;
+    text-decoration: none;
+}
+
+.qqnav > div{
+    height: 100%; 
+}
+
+.qqnav .qq1 h4{
+    margin: auto 20px auto 20px;
+    text-align: center;
+}
+
+.qqnav .nav{
+    padding: 0 !important;
+    --bs-nav-link-padding-x: 10px !important;
+    --bs-nav-link-padding-y: 5px !important;
+}
+
+.qqnav .left{
+	width: 40% !important;
+}
+
+.qqnav .cen{
+	width: 20% !important;
+/*	margin: 0 2vh 0 5vh;*/
+}
+
+.qqnav .right{
+	width: 20% !important;
+}
+
+.qqnav .txt{
+	position: absolute;
+	border: 0;
+	margin-left: 0.1vh;
+}
+
+.qqnav .search{
+	padding-left: 8vh;
+}
+
+.qqnav select{
+    border: none;
+    outline: none;
+}
+
+.qqnav .logo{
+    width: 30vh;
+    height: 6vh;
+    background-image: url(/HumanRental/resources/img/Main/logo.png);
+    background-size: cover;
+    margin: 0 2vh 0 0;
+    cursor: pointer;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
