@@ -1245,8 +1245,8 @@
 								</div>
 							</c:when>
 							<c:when test="${ mode == 'reservationApprovalManagement' }"><!-- 예약 승인 페이지 -->
-								<div><hr><h2>예약 승인</h2><hr></div>
-								<div>
+								<div><h2 class="pt-4">예약 승인</h2></div>
+								<div class="p-3">
 									<table class="table table-hover">
 										<tr>
 											<th>번호</th>
@@ -1300,8 +1300,8 @@
 								</div>
 							</c:when>
 							<c:when test="${ mode == 'reservationApprovalInfo' }"><!-- 예약 승인 상세 페이지 -->
-								<div><hr><h2>예약 상세 정보</h2><hr></div>
-								<div>
+								<div><h2 class="pt-4">예약 상세 정보</h2></div>
+								<div class="p-3">
 									<c:choose>
 									    <c:when test="${ reservation.boardId.contains('buy') }">
 											게시글 : <a href="/HumanRental/buying/detail?buyingId=${reservation.boardId}">${ reservation.title }</a><br>
@@ -1315,7 +1315,7 @@
 									예약일 : ${reservation.reservationdate}<br>
 									예약 내용 : ${reservation.reservationcontent}<br>
 								</div>
-								<div>
+								<div class="p-3">
 									<c:if test="${reservation.approve == '대기'}">
 										<a href="/HumanRental/reservationApproval?reservationId=${ reservation.reservationId }&approval=yes">승인</a>
 										<a href="/HumanRental/reservationApproval?reservationId=${ reservation.reservationId }&approval=no">거절</a>
@@ -1328,7 +1328,7 @@
 								</div>
 							</c:when>
 							<c:when test="${ mode == 'reservationListManagement' }"><!-- 예약 조회 페이지 -->
-								<div><hr><h2>예약 조회</h2><hr></div>
+								<div><h2 class="pt-4">예약 조회</h2></div>
 								<div>
 									<table class="table table-hover">
 										<tr>
@@ -1384,8 +1384,8 @@
 								
 							</c:when>
 							<c:when test="${ mode == 'reservationInfo' }"><!-- 예약 상세 정보 페이지 -->
-								<div><hr><h2>예약 상세 정보</h2><hr></div>
-								<div>
+								<div><h2 class="pt-4">예약 상세 정보</h2></div>
+								<div class="pt-1">
 									예약 신청일 : ${reservation.regist_day}<br>
 									<c:choose>
 									    <c:when test="${ reservation.boardId.contains('buy') }">
@@ -1404,12 +1404,12 @@
 									진행 상황 : ${reservation.approve}<br>
 									승인일 : ${reservation.signdate}
 								</div>
-								<div>
+								<div class="p-3">
 									<c:if test="${reservation.approve == '렌탈완료'}">
-										<a reservationId="${reservation.reservationId}" onclick="reviewCheck(this)"> 후기작성</a>
-										<a reservationId="${reservation.reservationId}" onclick="reviewCheck2(this)">후기관리</a>
+										<a reservationId="${reservation.reservationId}" onclick="reviewCheck(this)" class="btn btn-dark"> 후기작성</a>
+										<a reservationId="${reservation.reservationId}" onclick="reviewCheck2(this)" class="btn btn-dark">후기관리</a>
 									</c:if>
-									<a href="/HumanRental/reservationListManagement">목록</a>
+									<a href="/HumanRental/reservationListManagement" class="btn btn-dark">목록</a>
 								</div>
 							</c:when>
 							<c:when test="${ mode == 'ReviewPage' }"><!-- 리뷰 페이지 -->

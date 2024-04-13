@@ -249,8 +249,6 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 		float menCount = mentee.getStarCount();
 		float newStarRate;
 		float newStarCount;
-//		System.out.println("menStar="+menStar);
-//		System.out.println("menCount="+menCount);
 		
 		if (duplication == false) {
 			newStarRate = ((menStar * menCount) + starRate) / (menCount + 1);
@@ -259,8 +257,6 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 			newStarRate = ((menStar * menCount) - menStar + starRate) / menCount;
 			newStarCount = menCount;
 		}
-//		System.out.println("newStarRate="+newStarRate);
-//		System.out.println("newStarCount="+newStarCount);
 		
 		String sql = "update MenteeProfile set starRate = ?, starCount = ? where memberId = ?";
 		template.update(sql, newStarRate, newStarCount, mentee.getMemberId());

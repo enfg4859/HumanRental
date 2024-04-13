@@ -43,11 +43,6 @@ public class ReviewController {
 		String applicantMemberId = reservation.getApplicantMemberId();
 		review.setReservationId(reservationId);
 		
-//		System.out.println("포스트 리뷰");
-//		System.out.println("memberId"+memberId);
-//		System.out.println("review.getMemberId()"+review.getMemberId());
-//		System.out.println("테스트"+memberId==review.getMemberId());
-		
 		if(memberId.equals(review.getMemberId())) {
 				reviewService.MemberReviewWrite(review);
 				reviewService.StarRateUpdate2(applicantMemberId, review, false);
@@ -80,6 +75,45 @@ public class ReviewController {
 		return "MyPage";
 	}
 	
+	@GetMapping("/ReviewUpdate")
+	public String ReviewUpdate(@RequestParam String reservationId, Model model, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		String memberId = (String)session.getAttribute("user");
+		
+		try {
+			reservationService.GetReservationInfo(reservationId, model);
+			reviewService.getReviewByResvId(reservationId, model, memberId);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return "false";
+		}
+		
+		model.addAttribute("mode", "ReviewPage");
+		model.addAttribute("reviewmode", "update");
+		return "MyPage";
+		
+	}
+	
+	@PostMapping("/ReviewUpdate")
+	public String ReviewUpdate(@ModelAttribute Review review, @RequestParam String reservationId, Model model, HttpServletRequest request) {
+		
+		Reservation reservation = reservationService.GetReservationInfo(reservationId, model);
+		String memberId = reservation.getMemberId();
+		
+		if(memberId.equals(review.getMemberId())) {
+			reviewService.MemberReviewUpdate(review);
+			reviewService.StarRateUpdate(review.getMemberId(), review, true);
+		}
+		else {
+			reviewService.ReviewUpdate(review);
+			reviewService.StarRateUpdate(review.getMemberId(), review, true);
+		}
+		
+		return "redirect:/ReviewRead?reservationId="+reservationId;
+	}
+
 	@GetMapping("/ReviewCheck")
 	@ResponseBody
 	public String ReviewCheck(@RequestParam String reservationId, Model model, HttpServletRequest request) {
@@ -112,7 +146,6 @@ public class ReviewController {
 		try {
 			reservationService.GetReservationInfo(reservationId, model);
 			check = reviewService.ReviewCheck2(reservationId, model, memberId);
-//			System.out.println("check="+check);
 			if(check=="false") {
 				return "false";
 			}
@@ -123,43 +156,4 @@ public class ReviewController {
 		}
 		return "true";
 	}
-	
-	@GetMapping("/ReviewUpdate")
-	public String ReviewUpdate(@RequestParam String reservationId, Model model, HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		String memberId = (String)session.getAttribute("user");
-		
-		try {
-			reservationService.GetReservationInfo(reservationId, model);
-			reviewService.getReviewByResvId(reservationId, model, memberId);
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-			return "false";
-		}
-		
-		model.addAttribute("mode", "ReviewPage");
-		model.addAttribute("reviewmode", "update");
-		return "MyPage";
-	}
-	
-	@PostMapping("/ReviewUpdate")
-	public String ReviewUpdate(@ModelAttribute Review review, @RequestParam String reservationId, Model model, HttpServletRequest request) {
-		
-		Reservation reservation = reservationService.GetReservationInfo(reservationId, model);
-		String memberId = reservation.getMemberId();
-		
-		if(memberId.equals(review.getMemberId())) {
-			reviewService.MemberReviewUpdate(review);
-			reviewService.StarRateUpdate(review.getMemberId(), review, true);
-		}
-		else {
-			reviewService.ReviewUpdate(review);
-			reviewService.StarRateUpdate(review.getMemberId(), review, true);
-		}
-		
-		return "redirect:/ReviewRead?reservationId="+reservationId;
-	}
-	
 }
